@@ -382,6 +382,7 @@
   .card-img-grid{
    border-radius: 0% !important;
    margin-left: 11%;
+   height: 110% !important;
   }
 }
 .conteiner-icon-favorite{

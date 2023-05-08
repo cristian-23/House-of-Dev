@@ -123,6 +123,7 @@ const navigate= useNavigate()
                                 class="bi bi-heart-fill"
                                 viewBox="0 0 16 16"
                                 style={{ color: "red" }}
+                                onClick={()=>{deleteFavoriteHandler(home)}}
                               >
                                 <path
                                   fill-rule="evenodd"
