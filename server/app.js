@@ -6,7 +6,7 @@ const { User, Property, Favorites, Appointment, Message } = require("./models");
 
 const app = express();
 const db = require("./db/db.js");
-const port = 3001;
+const port = process.env.PORT;
 
 app.use(
   cors({
