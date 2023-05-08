@@ -1,11 +1,11 @@
-const dotenv = require("dotenv");
+require("dotenv").config({ path: "./.env" });
 
-dotenv.config();
-const requiredEnvs = ["SECRET"];
+const requiredEnvs = ["SECRET", "URL_DB", "DB_HOST"];
+
 requiredEnvs.forEach((env) => {
-  if (!process.env[env]) throw new Error(`Missing env variable ${env}`);
+  if (!process.env[env]) {
+    console.warn(`Warning: Missing environment variable '${env}'`);
+  }
 });
 
-const secret = process.env.SECRET;
-
-module.export = secret;
+module.exports = process.env;
