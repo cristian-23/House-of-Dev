@@ -93,7 +93,7 @@ function Grid() {
         .then((house) => setProperties(house.data));
     } else {
       axios
-        .get("http://localhost:3001/api/property", { withCredentials: true })
+        .get("http://dpg-chcnb4l269vdj6b7acrg-a/api/property", { withCredentials: true })
         .then((house) => setProperties(house.data));
     }
   }, [value]);
