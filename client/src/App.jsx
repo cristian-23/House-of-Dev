@@ -63,7 +63,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<FormRegister />} />
-          <Route path="/favoritess" element={<Favorites />} />
+          <Route path="/favorites" element={<Favorites />} />
           <Route path="/Profile" element={<Profile />} />
           <Route path="/card/:id" element={<CardIndividual />} />
           <Route path="/appointments" element={<Appointments />} />
