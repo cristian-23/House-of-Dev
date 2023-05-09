@@ -10,7 +10,7 @@ const port = process.env.PORT;
 
 app.use(
   cors({
-    origin: "https://house-of-dev.vercel.app/",
+    origin: "https://house-of-dev.vercel.app",
     credentials: true,
   })
 );
