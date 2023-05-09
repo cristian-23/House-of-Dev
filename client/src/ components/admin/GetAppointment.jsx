@@ -32,7 +32,7 @@ function GetAppointment({
     if (!verify) {
       axios
         .post(
-          `http://localhost:3001/api/appointment/${userId}`,
+          `https://houseofdev-mga1.onrender.com/api/appointment/${userId}`,
           {
             address: address,
             date: startDate.toString(),

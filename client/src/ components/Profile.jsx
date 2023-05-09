@@ -18,7 +18,7 @@ const Profile = () => {
     if (isEditing) {
       axios
         .put(
-          `http://localhost:3001/api/user/profile/${user.id}`,
+          `https://houseofdev-mga1.onrender.com/api/user/profile/${user.id}`,
           {
             name: name,
             lastName: lastName,

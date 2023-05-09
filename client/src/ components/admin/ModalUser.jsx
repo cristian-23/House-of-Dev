@@ -22,7 +22,7 @@ function ModalUser({ id }) {
     setShow(true);
     console.log("estoy aquiii");
     axios
-      .get(`http://localhost:3001/api/user/admin/${id}`, {
+      .get(`https://houseofdev-mga1.onrender.com/api/user/admin/${id}`, {
         withCredentials: true,
       })
       .then((user) => {
@@ -36,7 +36,7 @@ function ModalUser({ id }) {
     console.log(isAdmin, "soy el valor de admin en el sumiteo")
     axios
       .put(
-        `http://localhost:3001/api/user/${id}`,
+        `https://houseofdev-mga1.onrender.com/api/user/${id}`,
         { admin: isAdmin },
         { withCredentials: true }
       )

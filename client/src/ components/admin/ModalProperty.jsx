@@ -29,7 +29,7 @@ function ModalProperty({ id }) {
   // OPEN AND SHOW DATA OF PROPERTY
   const handleShow = () => {
     axios
-      .get(`http://localhost:3001/api/property/${id}`, {
+      .get(`https://houseofdev-mga1.onrender.com/api/property/${id}`, {
         withCredentials: true,
       })
       .then((property) => setProperty(property.data));
@@ -51,7 +51,7 @@ function ModalProperty({ id }) {
     };
     event.preventDefault();
     axios
-      .put(`http://localhost:3001/api/property/${id}`, property, {
+      .put(`https://houseofdev-mga1.onrender.com/api/property/${id}`, property, {
         withCredentials: true,
       })
       .then((propertyUpdated) => {

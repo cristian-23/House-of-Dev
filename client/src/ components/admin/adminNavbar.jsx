@@ -14,7 +14,7 @@ function NavbarAdmin() {
   const handleLogout = () => {
     axios
       .post(
-        "http://localhost:3001/api/user/logout",
+        "https://houseofdev-mga1.onrender.com/api/user/logout",
         {},
         { withCredentials: true }
       )

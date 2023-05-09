@@ -20,7 +20,7 @@ function FormRegister() {
     e.preventDefault();
     axios
       .post(
-        "http://localhost:3001/api/user/register",
+        "https://houseofdev-mga1.onrender.com/api/user/register",
         {
           name: name,
           lastName: lastName,

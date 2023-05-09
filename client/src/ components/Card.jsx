@@ -13,7 +13,7 @@ function CardIndividual() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/api/property/${id}`, {
+      .get(`https://houseofdev-mga1.onrender.com/api/property/${id}`, {
         withCredentials: true,
       })
       .then((home) => {

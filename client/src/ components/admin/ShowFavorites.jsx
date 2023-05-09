@@ -14,7 +14,7 @@ const ShowFavorites = ({ id }) => {
   const handleClose = () => setShow(false);
   const handleShow = () => {
     axios
-      .get(`http://localhost:3001/api/favorite/admin/${id}`, {
+      .get(`https://houseofdev-mga1.onrender.com/api/favorite/admin/${id}`, {
         withCredentials: true,
       })
       .then((data) => setFavorites(data.data));

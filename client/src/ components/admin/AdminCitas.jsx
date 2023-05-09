@@ -15,7 +15,7 @@ export default function AdminCitas() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/api/appointment", { withCredentials: true })
+      .get("https://houseofdev-mga1.onrender.com/api/appointment", { withCredentials: true })
       .then((citas) => {
         setQuotes(citas.data);
       });

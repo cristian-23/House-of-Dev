@@ -28,7 +28,7 @@ const navigate= useNavigate()
       type: "remove",
     };
     axios
-      .post(`http://localhost:3001/api/favorite/${user.id}`, data, {
+      .post(`https://houseofdev-mga1.onrender.com/api/favorite/${user.id}`, data, {
         withCredentials: true,
       })
       .then((fa) => {

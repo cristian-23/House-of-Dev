@@ -15,7 +15,7 @@ const Chat = ({ receiverId, userName }) => {
   const handleClose = () => setShow(false);
   const handleShow = () => {
     axios
-      .get(`http://localhost:3001/api/messages/${receiverId}`, {
+      .get(`https://houseofdev-mga1.onrender.com/api/messages/${receiverId}`, {
         withCredentials: true,
       })
       .then((messages) => setMessages(messages.data));
@@ -27,7 +27,7 @@ const Chat = ({ receiverId, userName }) => {
     e.preventDefault();
     axios
       .post(
-        `http://localhost:3001/api/messages/${receiverId}`,
+        `https://houseofdev-mga1.onrender.com/api/messages/${receiverId}`,
         { text: message, senderId: user.id },
         {
           withCredentials: true,

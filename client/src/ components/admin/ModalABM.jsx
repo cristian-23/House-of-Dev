@@ -37,7 +37,7 @@ function ModalABM() {
     };
 
     axios
-      .post("http://localhost:3001/api/property", property, {
+      .post("https://houseofdev-mga1.onrender.com/api/property", property, {
         withCredentials: true,
       })
       .then((propertyNew) => {

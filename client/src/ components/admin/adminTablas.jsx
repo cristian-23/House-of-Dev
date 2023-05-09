@@ -33,7 +33,7 @@ function TableAdmin() {
       }).then((response) => {
         if (response.isConfirmed) {
           axios
-            .delete(`http://localhost:3001/api/user/${userId}`, {
+            .delete(`https://houseofdev-mga1.onrender.com/api/user/${userId}`, {
               withCredentials: true,
             })
             .then(() => {
@@ -72,7 +72,7 @@ function TableAdmin() {
       }).then((response) => {
         if (response.isConfirmed) {
           axios
-            .delete(`http://localhost:3001/api/property/${propertyId}`, {
+            .delete(`https://houseofdev-mga1.onrender.com/api/property/${propertyId}`, {
               withCredentials: true,
             })
             .then(() => {
@@ -103,7 +103,7 @@ function TableAdmin() {
   useEffect(() => {
     if (debuggerUser) {
       axios
-        .get("http://localhost:3001/api/user", { withCredentials: true })
+        .get("https://houseofdev-mga1.onrender.com/api/user", { withCredentials: true })
         .then((response) => {
           dispatch(setDebuggerUser(response.data));
         });
@@ -113,7 +113,7 @@ function TableAdmin() {
   useEffect(() => {
     if (debuggerProperty) {
       axios
-        .get("http://localhost:3001/api/property", { withCredentials: true })
+        .get("https://houseofdev-mga1.onrender.com/api/property", { withCredentials: true })
         .then((response) => {
           dispatch(setDebuggerProperty(response.data));
         })
