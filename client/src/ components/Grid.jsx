@@ -50,7 +50,7 @@ function Grid() {
         type: "remove",
       };
       axios
-        .post(`http://localhost:3001/api/favorite/${user.id}`, data, {
+        .post(`https://houseofdev-mga1.onrender.com/api/favorite/${user.id}`, data, {
           withCredentials: true,
         })
         .then((fa) => {
@@ -69,7 +69,7 @@ function Grid() {
         type: "add",
       };
       axios
-        .post(`http://dpg-chcnb4l269vdj6b7acrg-a/api/favorite/${user.id}`, data, {
+        .post(`https://houseofdev-mga1.onrender.com/api/favorite/${user.id}`, data, {
           withCredentials: true,
         })
         .then((fa) => {
@@ -87,13 +87,13 @@ function Grid() {
   useEffect(() => {
     if (type && value) {
       axios
-        .get(`http://dpg-chcnb4l269vdj6b7acrg-a/api/property/${type}/${value}`, {
+        .get(`https://houseofdev-mga1.onrender.com/api/property/${type}/${value}`, {
           withCredentials: true,
         })
         .then((house) => setProperties(house.data));
     } else {
       axios
-        .get("http://dpg-chcnb4l269vdj6b7acrg-a/api/property", { withCredentials: true })
+        .get("https://houseofdev-mga1.onrender.com/api/property", { withCredentials: true })
         .then((house) => setProperties(house.data));
     }
   }, [value]);
