@@ -25,7 +25,8 @@ const login = async (req, res) => {
       admin: user.admin,
     };
     const token = generateToken(payload);
-    res.cookie("token", token).send(payload);
+    const cookie = localStorage.setItem("cookie", JSON.stringify(token));
+    res.send(cookie);
   } catch (error) {
     res.status(400).send(error);
   }
@@ -114,7 +115,7 @@ const editUser = async (req, res) => {
 const deleteUser = async (req, res) => {
   const { id } = req.params;
   try {
-   const user= await User.destroy({ where: { id: id } });
+    const user = await User.destroy({ where: { id: id } });
     res.status(202).send("ready");
   } catch (error) {
     res.status(400).send(error);

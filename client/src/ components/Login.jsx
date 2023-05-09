@@ -23,6 +23,7 @@ const Login = () => {
         { withCredentials: true }
       )
       .then((user) => {
+        console.log("cookie", user);
         dispatch(setUser(user.data));
         navigate("/");
       })
@@ -32,15 +33,9 @@ const Login = () => {
   return (
     <div className="loginContainer">
       <div className="parte-de-arriba">
-        <h1 className="h1-house">
-          HOUSE
-        </h1>
-        <h1 className="h1-of-dev">
-          OF DEV.
-        </h1>
-        <p className="p-login" >
-          Tu nueva vivienda esta aqui
-        </p>
+        <h1 className="h1-house">HOUSE</h1>
+        <h1 className="h1-of-dev">OF DEV.</h1>
+        <p className="p-login">Tu nueva vivienda esta aqui</p>
       </div>
       <form className="parte-de-abajo" onSubmit={handleSubmit}>
         <div className="grupo_input">
