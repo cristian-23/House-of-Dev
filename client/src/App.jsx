@@ -26,21 +26,21 @@ function App() {
   useEffect(() => {
     if (!userLogged.id) {
       axios
-        .get("http://localhost:3001/api/user/me", { withCredentials: true })
+        .get("https://houseofdev-mga1.onrender.com/api/user/me", { withCredentials: true })
         .then((usera) => {
           dispatch(setUser(usera.data.user));
         });
     }
     if (userLogged.id) {
       axios
-        .get(`http://localhost:3001/api/favorite/${userLogged.id}`, {
+        .get(`https://houseofdev-mga1.onrender.com/api/favorite/${userLogged.id}`, {
           withCredentials: true,
         })
         .then((favorito) => {
           dispatch(setFavorite(favorito.data));
         });
       axios
-        .get(`http://localhost:3001/api/appointment/${userLogged.id}`, {
+        .get(`https://houseofdev-mga1.onrender.com/api/appointment/${userLogged.id}`, {
           withCredentials: true,
         })
         .then((appointments) => {
