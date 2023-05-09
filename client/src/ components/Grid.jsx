@@ -69,7 +69,7 @@ function Grid() {
         type: "add",
       };
       axios
-        .post(`http://localhost:3001/api/favorite/${user.id}`, data, {
+        .post(`http://dpg-chcnb4l269vdj6b7acrg-a/api/favorite/${user.id}`, data, {
           withCredentials: true,
         })
         .then((fa) => {
@@ -87,7 +87,7 @@ function Grid() {
   useEffect(() => {
     if (type && value) {
       axios
-        .get(`http://localhost:3001/api/property/${type}/${value}`, {
+        .get(`http://dpg-chcnb4l269vdj6b7acrg-a/api/property/${type}/${value}`, {
           withCredentials: true,
         })
         .then((house) => setProperties(house.data));
