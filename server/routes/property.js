@@ -1,6 +1,10 @@
 const { Router } = require("express");
 
-const { validateAdmin, validateAuth } = require("../middleware/auth");
+const {
+  validateAdmin,
+  validateAuth,
+  validateAuthAdminByParams,
+} = require("../middleware/auth");
 
 const {
   getAllProperties,
@@ -32,5 +36,5 @@ router.post("/", validateAuth, validateAdmin, createProperty);
 
 router.put("/:id", validateAuth, validateAdmin, editInfoProperty);
 
-router.delete("/:id", validateAuth, validateAdmin, deleteAProperty);
+router.delete("/:admin/:id", validateAuthAdminByParams, deleteAProperty);
 module.exports = router;

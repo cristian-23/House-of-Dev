@@ -11,17 +11,18 @@ const getAllAppointments = async (req, res) => {
 
 const createAAppointment = async (req, res) => {
   const { id } = req.params;
-
+  const { date, address, image, userPhone, userName, userEmail, userLastName } =
+    req.body.data;
   try {
     const data = {
-      date: req.body.date,
-      address: req.body.address,
+      date: date,
+      address: address,
       UserId: id,
-      image: req.body.image,
-      userPhone: req.body.userPhone,
-      userName: req.body.userName,
-      userEmail: req.body.userEmail,
-      userLastName: req.body.userLastName,
+      image: image,
+      userPhone: userPhone,
+      userName: userName,
+      userEmail: userEmail,
+      userLastName: userLastName,
     };
     const appointment = await Appointment.create(data);
     res.status(201).send(appointment);
@@ -32,6 +33,7 @@ const createAAppointment = async (req, res) => {
 
 const getAllYourAppointment = async (req, res) => {
   try {
+    console.log(req.body);
     const appointments = await Appointment.findAll({
       where: { UserId: req.params.id },
     });

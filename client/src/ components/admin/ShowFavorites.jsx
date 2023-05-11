@@ -7,6 +7,7 @@ import Modal from "react-bootstrap/Modal";
 import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";
 import "../../styles/FavoritesAdmin.css";
+import cookie from "../function/cookie";
 
 const ShowFavorites = ({ id }) => {
   const [show, setShow] = useState(false);
@@ -14,9 +15,12 @@ const ShowFavorites = ({ id }) => {
   const handleClose = () => setShow(false);
   const handleShow = () => {
     axios
-      .get(`https://houseofdev-mga1.onrender.com/api/favorite/admin/${id}`, {
-        withCredentials: true,
-      })
+      .get(
+        `https://houseofdev-mga1.onrender.com/api/favorite/${cookie()}/${id}`,
+        {
+          withCredentials: true,
+        }
+      )
       .then((data) => setFavorites(data.data));
     setShow(true);
   };

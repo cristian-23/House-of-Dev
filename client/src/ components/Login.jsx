@@ -23,8 +23,8 @@ const Login = () => {
         { withCredentials: true }
       )
       .then((user) => {
-        console.log("cookie", user);
-        dispatch(setUser(user.data));
+        dispatch(setUser(user.data.payload));
+        localStorage.setItem("cookie", JSON.stringify(user.data));
         navigate("/");
       })
       .catch((error) => console.log(error, "no funciona"));

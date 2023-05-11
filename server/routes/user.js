@@ -1,12 +1,14 @@
 const router = require("express").Router();
 
-const { validateAuth, validateAdmin } = require("../middleware/auth");
+const {
+  validateAuth,
+  validateAdmin,
+  validateAuthAdminByParams,
+} = require("../middleware/auth");
 const { passwordValidator } = require("../middleware/passwordValidator");
 const {
-  permanence,
   login,
   register,
-  logout,
   editProfile,
   getAllUsers,
   infoUser,
@@ -14,25 +16,21 @@ const {
   deleteUser,
 } = require("../controllers/user");
 
-router.get("/me", validateAuth, permanence);
-
 router.post("/register", passwordValidator, register);
 
 router.post("/login", login);
-
-router.post("/logout", logout);
 
 router.put("/profile/:id", validateAuth, editProfile);
 
 // ADMIN ROUTES FIND AND EDIT USERS
 
-router.get("/", validateAuth, validateAdmin, getAllUsers);
+router.post("/", validateAuth, validateAdmin, getAllUsers);
 
-router.get("/admin/:id", validateAuth, infoUser);
+router.post("/admin/:id", validateAuth, validateAdmin, infoUser);
 
 router.put("/:id", validateAuth, validateAdmin, editUser);
 
-router.delete("/:id", validateAuth, validateAdmin, deleteUser);
+router.delete("/:admin/:id", validateAuthAdminByParams, validateAdmin, deleteUser );
 
 module.exports = router;
 

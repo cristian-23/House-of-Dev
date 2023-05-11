@@ -6,6 +6,7 @@ import Modal from "react-bootstrap/Modal";
 import { useDispatch } from "react-redux";
 import { addProperty, setDebuggerProperty } from "../../state/debuggerProperty";
 import "../../styles/adminNavbar.css";
+import cookie from "../function/cookie";
 
 function ModalABM() {
   const dispatch = useDispatch();
@@ -24,7 +25,7 @@ function ModalABM() {
   const handleShow = () => setShow(true);
   const handleSubmit = (event) => {
     event.preventDefault();
-    const property = {
+    const data = {
       address: address,
       bathrooms: bathrooms,
       bedrooms: bedrooms,
@@ -37,9 +38,13 @@ function ModalABM() {
     };
 
     axios
-      .post("https://houseofdev-mga1.onrender.com/api/property", property, {
-        withCredentials: true,
-      })
+      .post(
+        "https://houseofdev-mga1.onrender.com/api/property",
+        { token: cookie(), data },
+        {
+          withCredentials: true,
+        }
+      )
       .then((propertyNew) => {
         console.log("create"), dispatch(addProperty(propertyNew.data));
         setShow(false);

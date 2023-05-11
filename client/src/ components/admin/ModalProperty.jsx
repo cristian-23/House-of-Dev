@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 import axios from "axios";
+import cookie from "../function/cookie";
 
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -38,7 +39,7 @@ function ModalProperty({ id }) {
   // SEND UPDATE DATA OF PROPERTY
   const handleSubmit = (event) => {
     setShow(false);
-    const property = {
+    const data = {
       address: address,
       bathrooms: bathrooms,
       bedrooms: bedrooms,
@@ -51,9 +52,13 @@ function ModalProperty({ id }) {
     };
     event.preventDefault();
     axios
-      .put(`https://houseofdev-mga1.onrender.com/api/property/${id}`, property, {
-        withCredentials: true,
-      })
+      .put(
+        `https://houseofdev-mga1.onrender.com/api/property/${id}`,
+        { token: cookie(), data },
+        {
+          withCredentials: true,
+        }
+      )
       .then((propertyUpdated) => {
         console.log(propertyUpdated, "actualized"),
           dispatch(updateInfo(propertyUpdated.data[1][0]));

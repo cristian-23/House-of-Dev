@@ -16,36 +16,52 @@ import { setAppointment } from "./state/appointment";
 import CardIndividual from "./ components/Card";
 import Appointments from "./ components/Appointments";
 import AdminCitas from "./ components/admin/AdminCitas";
-
+import cookie from "./ components/function/cookie";
 
 function App() {
   const dispatch = useDispatch();
   const userLogged = useSelector((state) => state.user);
 
-
   useEffect(() => {
     if (!userLogged.id) {
-      axios
-        .get("https://houseofdev-mga1.onrender.com/api/user/me", { withCredentials: true })
-        .then((usera) => {
-          dispatch(setUser(usera.data.user));
-        });
+      const cookie = JSON.parse(localStorage.getItem("cookie"));
+      cookie ? dispatch(setUser(cookie.payload)) : null;
     }
     if (userLogged.id) {
       axios
-        .get(`https://houseofdev-mga1.onrender.com/api/favorite/${userLogged.id}`, {
-          withCredentials: true,
-        })
+        .post(
+          `https://houseofdev-mga1.onrender.com/api/favorite/all/${userLogged.id}`,
+          { token: cookie() },
+          {
+            withCredentials: true,
+          }
+        )
         .then((favorito) => {
+          console.log(favorito);
           dispatch(setFavorite(favorito.data));
         });
       axios
-        .get(`https://houseofdev-mga1.onrender.com/api/appointment/${userLogged.id}`, {
-          withCredentials: true,
-        })
+        .post(
+          `https://houseofdev-mga1.onrender.com/api/appointment/all/${userLogged.id}`,
+          { token: cookie() },
+          {
+            withCredentials: true,
+          }
+        )
         .then((appointments) => {
           dispatch(setAppointment(appointments.data));
         });
+      if (!userLogged.admin) {
+        axios
+          .post(
+            `https://houseofdev-mga1.onrender.com/api/messages/chat/${userLogged.id}`,
+            { token: cookie() },
+            { withCredentials: true }
+          )
+          .then((messages) => {
+            dispatch(setMessages(messages.data));
+          });
+      }
     }
   }, [userLogged]);
   return (
@@ -55,7 +71,7 @@ function App() {
           <NavbarAdmin />
           <Routes>
             <Route path="/" element={<TableAdmin />} />
-            <Route path="/adminCitas" element={<AdminCitas/>} />
+            <Route path="/adminCitas" element={<AdminCitas />} />
           </Routes>
         </>
       ) : (

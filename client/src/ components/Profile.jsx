@@ -5,6 +5,7 @@ import NavbarUser from "./Navbar";
 import axios from "axios";
 import { setUser } from "../state/user";
 import svgs from "../commons/svgs";
+import cookie from "./function/cookie";
 
 const Profile = () => {
   const user = useSelector((state) => state.user);
@@ -15,20 +16,17 @@ const Profile = () => {
   const [phone, setPhone] = useState(user.phone);
 
   function handleEditClick() {
+    const data = { name: name, lastName: lastName, phone: phone };
     if (isEditing) {
       axios
         .put(
           `https://houseofdev-mga1.onrender.com/api/user/profile/${user.id}`,
-          {
-            name: name,
-            lastName: lastName,
-            phone: phone,
-          },
+          { token: cookie(), data },
           { withCredentials: true }
         )
         .then((user) => {
           dispatch(setUser(user.data));
-          console.log(user.data);
+          localStorage.setItem("cookie", JSON.stringify(user.data));
           setIsEditing(false);
         })
         .catch((error) => {
@@ -52,12 +50,10 @@ const Profile = () => {
             {isEditing ? "GUARDAR" : "EDITAR"}
             <span className="icon-profile-pencil">{svgs.pencil}</span>
           </button>
-          <p className="name-profile">
-            Nombre
-          </p>
+          <p className="name-profile">Nombre</p>
           {isEditing ? (
             <input
-            className="input-name-profile"
+              className="input-name-profile"
               type="text"
               value={name}
               onChange={(event) => {
@@ -66,14 +62,11 @@ const Profile = () => {
               }}
             />
           ) : (
-            <h5 className="h5-name-profile" >
-              {user.name}
-            </h5>
+            <h5 className="h5-name-profile">{user.name}</h5>
           )}
-          <hr className="hr-name-profile"
-          />
+          <hr className="hr-name-profile" />
           <img
-          className="img-profile"
+            className="img-profile"
             src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
             alt=""
             width="150"
@@ -81,36 +74,31 @@ const Profile = () => {
           />
         </div>
         <div className="conteiner-apellido-email-celular-contarseña">
-          <h6 className="h6-apellido-email-celular-contraseña" >
-            Apellido
-          </h6>
+          <h6 className="h6-apellido-email-celular-contraseña">Apellido</h6>
           {isEditing ? (
-            <input className="input-h5-apellido-email-celular-contraseña" 
+            <input
+              className="input-h5-apellido-email-celular-contraseña"
               type="text"
               value={lastName}
               onChange={(event) => setLastName(event.target.value)}
             />
           ) : (
-            <h5 className="input-h5-apellido-email-celular-contraseña" >
+            <h5 className="input-h5-apellido-email-celular-contraseña">
               {user.lastName}
             </h5>
           )}
           <hr className="hr-perfil" />
 
-          <h6 className="h6-apellido-email-celular-contraseña" >
-            Email
-          </h6>
+          <h6 className="h6-apellido-email-celular-contraseña">Email</h6>
           <h5 className="input-h5-apellido-email-celular-contraseña">
             {user.email}
           </h5>
           <hr className="hr-perfil" />
 
-          <h6 className="h6-apellido-email-celular-contraseña">
-            Celular
-          </h6>
+          <h6 className="h6-apellido-email-celular-contraseña">Celular</h6>
           {isEditing ? (
             <input
-            className="input-h5-apellido-email-celular-contraseña"
+              className="input-h5-apellido-email-celular-contraseña"
               type="text"
               value={phone}
               onChange={(event) => setPhone(event.target.value)}
@@ -122,9 +110,7 @@ const Profile = () => {
           )}
           <hr className="hr-perfil" />
 
-          <h6 className="h6-apellido-email-celular-contraseña" >
-            Contraseña
-          </h6>
+          <h6 className="h6-apellido-email-celular-contraseña">Contraseña</h6>
           <h5 className="input-h5-apellido-email-celular-contraseña">
             ***************
           </h5>

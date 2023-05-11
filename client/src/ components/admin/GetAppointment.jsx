@@ -7,6 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { addAppointment } from "../../state/appointment";
 import MomentInput from "react-moment-input";
 import moment from "moment";
+import cookie from "../function/cookie";
 
 function GetAppointment({
   address,
@@ -27,21 +28,22 @@ function GetAppointment({
     setShow(true);
   };
   const handleSubmit = () => {
+    const data = {
+      address: address,
+      date: startDate.toString(),
+      image: imgUser,
+      userName: name,
+      userPhone: phone,
+      userEmail: email,
+      userLastName: lastName,
+    };
     const verify = appointments.some((x) => x.address === address);
 
     if (!verify) {
       axios
         .post(
           `https://houseofdev-mga1.onrender.com/api/appointment/${userId}`,
-          {
-            address: address,
-            date: startDate.toString(),
-            image: imgUser,
-            userName: name,
-            userPhone: phone,
-            userEmail: email,
-            userLastName: lastName,
-          },
+          { token: cookie(), data },
           { withCredentials: true }
         )
         .then((date) => {

@@ -81,7 +81,7 @@ const filterPrice = async (req, res) => {
 
 const createProperty = async (req, res) => {
   try {
-    const property = await Property.create(req.body);
+    const property = await Property.create(req.body.data);
     res.status(201).send(property);
   } catch (error) {
     console.log(error);
@@ -92,7 +92,7 @@ const editInfoProperty = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const propertyUpdate = await Property.update(req.body, {
+    const propertyUpdate = await Property.update(req.body.data, {
       where: {
         id: id,
       },

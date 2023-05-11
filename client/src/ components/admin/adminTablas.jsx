@@ -12,6 +12,7 @@ import {
   setDebuggerProperty,
 } from "../../state/debuggerProperty";
 import ShowFavorites from "./ShowFavorites";
+import cookie from "../function/cookie";
 
 function TableAdmin() {
   const userOnly = useSelector((state) => state.user);
@@ -33,9 +34,12 @@ function TableAdmin() {
       }).then((response) => {
         if (response.isConfirmed) {
           axios
-            .delete(`https://houseofdev-mga1.onrender.com/api/user/${userId}`, {
-              withCredentials: true,
-            })
+            .delete(
+              `https://houseofdev-mga1.onrender.com/api/user/${cookie()}/${userId}`,
+              {
+                withCredentials: true,
+              }
+            )
             .then(() => {
               console.log("USUARIO ELIMINADO");
               dispatch(removeUser(userId));
@@ -72,9 +76,12 @@ function TableAdmin() {
       }).then((response) => {
         if (response.isConfirmed) {
           axios
-            .delete(`https://houseofdev-mga1.onrender.com/api/property/${propertyId}`, {
-              withCredentials: true,
-            })
+            .delete(
+              `https://houseofdev-mga1.onrender.com/api/property/${cookie()}/${propertyId}`,
+              {
+                withCredentials: true,
+              }
+            )
             .then(() => {
               console.log("YA BORREEEE LA PROPIEDAAAAAD");
 
@@ -103,7 +110,11 @@ function TableAdmin() {
   useEffect(() => {
     if (debuggerUser) {
       axios
-        .get("https://houseofdev-mga1.onrender.com/api/user", { withCredentials: true })
+        .post(
+          "https://houseofdev-mga1.onrender.com/api/user",
+          { token: cookie() },
+          { withCredentials: true }
+        )
         .then((response) => {
           dispatch(setDebuggerUser(response.data));
         });
@@ -113,7 +124,9 @@ function TableAdmin() {
   useEffect(() => {
     if (debuggerProperty) {
       axios
-        .get("https://houseofdev-mga1.onrender.com/api/property", { withCredentials: true })
+        .get("https://houseofdev-mga1.onrender.com/api/property", {
+          withCredentials: true,
+        })
         .then((response) => {
           dispatch(setDebuggerProperty(response.data));
         })

@@ -8,14 +8,18 @@ import svgs from "../../commons/svgs";
 import "../../styles/CitasAdmin.css";
 import { useSelector } from "react-redux";
 import Chat from "./Chat";
-
+import cookie from "../function/cookie";
 
 export default function AdminCitas() {
   const [quotes, setQuotes] = useState([]);
 
   useEffect(() => {
     axios
-      .get("https://houseofdev-mga1.onrender.com/api/appointment", { withCredentials: true })
+      .post(
+        "https://houseofdev-mga1.onrender.com/api/appointment",
+        { token: cookie() },
+        { withCredentials: true }
+      )
       .then((citas) => {
         setQuotes(citas.data);
       });

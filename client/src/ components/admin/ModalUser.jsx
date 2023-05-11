@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
-
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setDebuggerUser, updateInfoUser } from "../../state/debuggerUser";
+import { useSelector } from "react-redux";
+import cookie from "../function/cookie";
 
 function ModalUser({ id }) {
+  const userAdmin = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -22,9 +24,13 @@ function ModalUser({ id }) {
     setShow(true);
     console.log("estoy aquiii");
     axios
-      .get(`https://houseofdev-mga1.onrender.com/api/user/admin/${id}`, {
-        withCredentials: true,
-      })
+      .post(
+        `https://houseofdev-mga1.onrender.com/api/user/admin/${id}`,
+        { token: cookie() },
+        {
+          withCredentials: true,
+        }
+      )
       .then((user) => {
         console.log("entree");
         setUser(user.data);
@@ -32,16 +38,16 @@ function ModalUser({ id }) {
       });
   };
   const handleSubmit = () => {
+    const data = { admin: isAdmin };
     setShow(false);
-    console.log(isAdmin, "soy el valor de admin en el sumiteo")
+    console.log(isAdmin, "soy el valor de admin en el sumiteo");
     axios
       .put(
         `https://houseofdev-mga1.onrender.com/api/user/${id}`,
-        { admin: isAdmin },
+        { token: cookie(), data },
         { withCredentials: true }
       )
       .then((userUpdated) => {
-        console.log(userUpdated, "soy el usuario actualizado");
         dispatch(updateInfoUser(userUpdated.data));
       })
       .catch((error) => {

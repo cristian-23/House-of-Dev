@@ -7,19 +7,15 @@ import Nav from "react-bootstrap/Nav";
 import svgs from "../../commons/svgs";
 import { Link } from "react-router-dom";
 import "../../styles/adminNavbar.css";
+import { setUser } from "../../state/user";
 
 function NavbarAdmin() {
   const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   const handleLogout = () => {
-    axios
-      .post(
-        "https://houseofdev-mga1.onrender.com/api/user/logout",
-        {},
-        { withCredentials: true }
-      )
-      .then()
-      .catch((error) => console.log(error));
+    localStorage.clear();
+    dispatch(setUser({}));
   };
   return (
     <Navbar className="navbarAdminContainer">

@@ -1,14 +1,6 @@
 const { User, Favorites } = require("../models");
 const { generateToken } = require("../config/token");
 
-const permanence = async (req, res) => {
-  try {
-    res.status(200).send(req.user);
-  } catch (error) {
-    res.status(400).send(error);
-  }
-};
-
 const login = async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -25,10 +17,10 @@ const login = async (req, res) => {
       admin: user.admin,
     };
     const token = generateToken(payload);
-    const cookie = localStorage.setItem("cookie", JSON.stringify(token));
-    res.send(cookie);
+
+    res.send({ token, payload });
   } catch (error) {
-    res.status(400).send(error);
+    console.log(error);
   }
 };
 
@@ -49,18 +41,9 @@ const register = async (req, res) => {
   }
 };
 
-const logout = (req, res) => {
-  try {
-    res.clearCookie("token");
-    res.status(204).send("logout");
-  } catch (error) {
-    res.status(400).send(error);
-  }
-};
-
 const editProfile = async (req, res) => {
   const { id } = req.params;
-  const { name, lastName, phone } = req.body;
+  const { name, lastName, phone } = req.body.data;
   try {
     const user = await User.findByPk(id);
     const userUpdate = await user.update({ name, lastName, phone });
@@ -74,8 +57,7 @@ const editProfile = async (req, res) => {
       admin: userUpdate.admin,
     };
     token = generateToken(payload);
-    res.cookie("token", token);
-    res.status(202).send(userUpdate);
+    res.status(202).send({ payload, token });
   } catch (error) {
     res.status(400).send(error);
   }
@@ -102,7 +84,7 @@ const infoUser = async (req, res) => {
 
 const editUser = async (req, res) => {
   const { id } = req.params;
-  const { admin } = req.body;
+  const { admin } = req.body.data;
   try {
     const user = await User.findByPk(id);
     user.update({ admin });
@@ -123,12 +105,11 @@ const deleteUser = async (req, res) => {
 };
 module.exports = {
   login,
-  permanence,
   register,
-  logout,
   editProfile,
   getAllUsers,
   infoUser,
   editUser,
   deleteUser,
 };
+

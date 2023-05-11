@@ -2,38 +2,45 @@ import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import svgs from "../../commons/svgs";
 import axios from "axios";
 import Badge from "react-bootstrap/esm/Badge";
+import cookie from "../function/cookie";
+import { addMessages, setMessages } from "../../state/message";
 
 const Chat = ({ receiverId, userName }) => {
-  const [messages, setMessages] = useState([]);
+  const dispatch = useDispatch();
   const [message, setMessage] = useState("");
   const [show, setShow] = useState(false);
   const user = useSelector((state) => state.user);
   const handleClose = () => setShow(false);
   const handleShow = () => {
     axios
-      .get(`https://houseofdev-mga1.onrender.com/api/messages/${receiverId}`, {
-        withCredentials: true,
-      })
-      .then((messages) => setMessages(messages.data));
+      .post(
+        `https://houseofdev-mga1.onrender.com/api/messages/chat/${receiverId}`,
+        { token: cookie() },
+        {
+          withCredentials: true,
+        }
+      )
+      .then((messages) => dispatch(setMessages(messages.data)));
 
     setShow(true);
   };
 
   const handleSubmit = (e) => {
+    const data = { text: message, senderId: user.id };
     e.preventDefault();
     axios
       .post(
         `https://houseofdev-mga1.onrender.com/api/messages/${receiverId}`,
-        { text: message, senderId: user.id },
+        { token: cookie(), data },
         {
           withCredentials: true,
         }
       )
-      .then((message) => setMessages([...messages, message.data]));
+      .then((message) => dispatch(addMessages(message.data)));
   };
   return (
     <>
@@ -47,10 +54,13 @@ const Chat = ({ receiverId, userName }) => {
             NOTIFICACIONES
             <span id="icon-notifications">{svgs.notifications}</span>
           </button>
-          {messages.length==0? "": <Badge id="badge-grid" bg="danger">
-            {messages.length}
-          </Badge>}
-          
+          {messages.length == 0 ? (
+            ""
+          ) : (
+            <Badge id="badge-grid" bg="danger">
+              {messages.length}
+            </Badge>
+          )}
         </>
       )}
 

@@ -18,16 +18,8 @@ function NavbarUser() {
   const dispatch = useDispatch();
 
   const handleLogout = () => {
-    axios
-      .post(
-        "https://houseofdev-mga1.onrender.com/api/user/logout",
-        {},
-        { withCredentials: true }
-      )
-      .then(() => {
-        dispatch(setUser({}));
-      })
-      .catch((error) => console.log(error));
+    localStorage.clear();
+    dispatch(setUser({}));
   };
   return (
     <Navbar style={{ backgroundColor: "#FE4236" }} expand="lg">

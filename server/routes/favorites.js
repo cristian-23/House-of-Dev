@@ -1,6 +1,10 @@
 const { Router } = require("express");
 
-const { validateAuth, validateAdmin } = require("../middleware/auth");
+const {
+  validateAuth,
+  validateAdmin,
+  validateAuthAdminByParams,
+} = require("../middleware/auth");
 const {
   addOrDeleteFavorite,
   getAllYourFavorites,
@@ -11,13 +15,15 @@ const router = Router();
 
 router.post("/:id", validateAuth, addOrDeleteFavorite);
 
-
-router.get("/:id", validateAuth, getAllYourFavorites);
-
-
+router.post("/all/:id", validateAuth, getAllYourFavorites);
 
 // ADMIN
 
-router.get("/admin/:id", validateAuth, validateAdmin, getFavoritesOfUser);
+router.get(
+  "/:admin/:id",
+  validateAuthAdminByParams,
+  validateAdmin,
+  getFavoritesOfUser
+);
 
 module.exports = router;

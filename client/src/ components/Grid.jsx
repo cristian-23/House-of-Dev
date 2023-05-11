@@ -18,6 +18,7 @@ import { setType } from "../state/type";
 import "../styles/Grid.css";
 import Badge from "react-bootstrap/Badge";
 import Chat from "./admin/Chat";
+import cookie from "./function/cookie";
 
 function Grid() {
   const [properties, setProperties] = useState([]);
@@ -50,9 +51,13 @@ function Grid() {
         type: "remove",
       };
       axios
-        .post(`https://houseofdev-mga1.onrender.com/api/favorite/${user.id}`, data, {
-          withCredentials: true,
-        })
+        .post(
+          `https://houseofdev-mga1.onrender.com/api/favorite/${user.id}`,
+          { token: cookie(), data },
+          {
+            withCredentials: true,
+          }
+        )
         .then((fa) => {
           dispatch(addOrRemoveToFavorite(fa.data));
         })
@@ -69,9 +74,13 @@ function Grid() {
         type: "add",
       };
       axios
-        .post(`https://houseofdev-mga1.onrender.com/api/favorite/${user.id}`, data, {
-          withCredentials: true,
-        })
+        .post(
+          `https://houseofdev-mga1.onrender.com/api/favorite/${user.id}`,
+          { token: cookie(), data },
+          {
+            withCredentials: true,
+          }
+        )
         .then((fa) => {
           dispatch(addOrRemoveToFavorite(fa.data));
         })
@@ -87,13 +96,18 @@ function Grid() {
   useEffect(() => {
     if (type && value) {
       axios
-        .get(`https://houseofdev-mga1.onrender.com/api/property/${type}/${value}`, {
-          withCredentials: true,
-        })
+        .get(
+          `https://houseofdev-mga1.onrender.com/api/property/${type}/${value}`,
+          {
+            withCredentials: true,
+          }
+        )
         .then((house) => setProperties(house.data));
     } else {
       axios
-        .get("https://houseofdev-mga1.onrender.com/api/property", { withCredentials: true })
+        .get("https://houseofdev-mga1.onrender.com/api/property", {
+          withCredentials: true,
+        })
         .then((house) => setProperties(house.data));
     }
   }, [value]);

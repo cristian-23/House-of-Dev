@@ -7,6 +7,7 @@ import setDebuggerUserReducer from "./debuggerUser";
 import setDebuggerPropertyReducer from "./debuggerProperty";
 import typeReducer from "./type";
 import valueReducer from "./value";
+import messagesReducer from "./message";
 
 const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
@@ -18,6 +19,7 @@ const store = configureStore({
     debuggerProperty: setDebuggerPropertyReducer,
     type: typeReducer,
     value: valueReducer,
+    messages: messagesReducer,
   },
 });
 
