@@ -18,6 +18,8 @@ import Appointments from "./ components/Appointments";
 import AdminCitas from "./ components/admin/AdminCitas";
 import cookie from "./ components/function/cookie";
 import { setMessages } from "./state/message";
+import { setFavorite } from "./state/favorites";
+import { setAppointment } from "./state/appointment";
 
 function App() {
   const dispatch = useDispatch();

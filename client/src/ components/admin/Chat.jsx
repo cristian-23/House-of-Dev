@@ -12,6 +12,7 @@ import { addMessages, setMessages } from "../../state/message";
 const Chat = ({ receiverId, userName }) => {
   const dispatch = useDispatch();
   const [message, setMessage] = useState("");
+  const messages = useSelector((state) => state.messages);
   const [show, setShow] = useState(false);
   const user = useSelector((state) => state.user);
   const handleClose = () => setShow(false);
