@@ -17,6 +17,7 @@ import CardIndividual from "./ components/Card";
 import Appointments from "./ components/Appointments";
 import AdminCitas from "./ components/admin/AdminCitas";
 import cookie from "./ components/function/cookie";
+import { setMessages } from "./state/message";
 
 function App() {
   const dispatch = useDispatch();
