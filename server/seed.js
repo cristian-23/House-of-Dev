@@ -4,6 +4,8 @@ const fakeHouse = require("./fakeData/fakeHouse.json");
 
 const seed = async () => {
   try {
+  const properties =  await Property.findAll()
+    await Property.destroy(properties)
     await Property.bulkCreate(fakeHouse);
     await User.create({
       name: "admin",
